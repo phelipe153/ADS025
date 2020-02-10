@@ -1,0 +1,11 @@
+1. Crie o modelo fisico para cada modelo relacional utilizando a ferramenta MySQL Workbench ou SQL Power Architect.
+
+a)
+
+b)
+
+c)
+
+d)
+
+e)
