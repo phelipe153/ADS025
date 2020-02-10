@@ -1,15 +1,10 @@
 1. Resolva as consultas em Álgebra Relacional para o seguinte modelo de dados.
 
-Aluno (id_aluno, nome)
-       ────────
-Disciplina (id_disciplina, nome, carga_horaria)
-            ─────────────
-Professor (id_professor, nome, titulacao)
-           ────────────
-Turma (id_periodo, id_disciplina, id_turma, horario, sala, id_professor)
-       ──────────  ─────────────  ────────
-Historico (id_periodo, id_disciplina, id_turma, id_aluno, frequencia, nota)
-           ──────────  ─────────────  ────────  ────────
+Aluno (id_aluno*, nome)
+Disciplina (id_disciplina*, nome, carga_horaria)
+Professor (id_professor*, nome, titulacao)
+Turma (id_periodo*, id_disciplina*, id_turma*, horario, sala, id_professor)
+Historico (id_periodo*, id_disciplina*, id_turma*, id_aluno*, frequencia, nota)
 
 a) Forneça nome e titulação dos professores.
 
