@@ -1,0 +1,11 @@
+1. Converta cada DER em um esquema do modelo relacional.
+
+a)
+
+b)
+
+c)
+
+d)
+
+e)
