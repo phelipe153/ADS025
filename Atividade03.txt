@@ -1,4 +1,4 @@
-1. Resolva as consultas em Álgebra e Cálculo Relacional para o seguinte modelo relacional.
+1. Resolva as consultas em Álgebra Relacional para o seguinte modelo de dados.
 
 Aluno (id_aluno, nome)
        ────────
@@ -46,7 +46,7 @@ b) Pedido (cod_pedido, dat_emissao, cod_fornecedor, nom_fornecedor, end_forneced
 
 Chave(s): cod_pedido
 Dependência(s): cod_pedido -> dat_emissao, cod_fornecedor, nom_fornecedor, end_fornecedor, vlr_total_pedido
-                cod_pedido, cod_material -> qtd_pedido, vl_total_material
+                {cod_pedido, cod_material} -> qtd_pedido, vl_total_material
                 cod_material -> dsc_material, vlr_unitario 
                 cod_fornecedor -> nom_fornecedor, end_fornecedor
 
