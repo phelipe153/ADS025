@@ -1,11 +1,80 @@
 1. Converta cada DER em um esquema do modelo relacional.
 
 a)
+      (*)codigo                            (*)matricula
+       |  ( )nome                           |  ( )nome
+       |   |                 +              |   |                +
+   +--------------+ (1,1)   / \    (0,N) +-------------+ (1,1)  / \
+   | Departamento |--------+   +---------| Funcionario |-------+   + gerencia
+   +--------------+         \ /          +-------------+        \ /
+                             +                |      | (0,N)     +
+                           lota       salario( )     +-----------+
 
 b)
+    ( )logradouro                     (*)id
+     | ( )numero                       | ( )nome
+     |  |                +             |  |
+   +----------+ (1,1)   / \    (1,1) +--------+ 
+   | Endereco |========+   +---------| Pessoa |
+   +----------+         \ /          +--------+
+     |  |  |             +               | 
+     |  | ( )cep       possui            + é
+     | ( )uf                            / \
+    ( )cidade                     +----+---+-----+
+                                  |              |
+                             +--------+     +----------+
+                             | Fisica |     | Juridica |
+                             +--------+     +----------+
+                               |  |           |  |  
+                               | ( )sexo      | ( )inscricao
+                              ( )cpf         ( )cnpj 
 
 c)
+    (*)cod_banco                   (*)cod_agencia
+     | ( )nome                      | ( )nome
+     |  |             +             |  |
+   +-------+ (1,1)   / \    (1,N) +---------+
+   | Banco |--------+   +---------| Agencia |
+   +-------+         \ /          +---------+
+                      +                | (1,N)
+                     tem               |
+                                       +  
+                                      / \---( )valor_parcela
+                            empresta +   +--( )qtde_parcelas
+                                      \ /---( )taxa_juros 
+                                       +
+                                       |
+                                       | (0,N)
+                                  +---------+
+                                  | Cliente |
+                                  +---------+ 
+                                    |  |  |
+                                    |  | (*)cpf 
+                                    | ( )nome
+                                   ( )data_nasc
 
 d)
+                           (*)id_produto
+                            | ( )nome
+                            |  |                    
+                          +---------+
+                          | Produto |
+                          +---------+
+     (*)id_fornecedor          | (0,N)         (*)id_consumidor
+      | ( )nome                |                | ( )nome
+      |  |                     +                |  |   
+   +------------+ (0,N)       / \      (0,N) +------------+  
+   | Fornecedor |------------+   +-----------| Consumidor |
+   +------------+    data( )--\ /--( )qtde   +------------+
+                               +          
+                            fornece
 
 e)
+    (*)cpf             ( )data      (*)crm   
+     | ( )nome          |            | ( )nome  
+     |  |              +-+-+         |  |  
+   +----------+ (0,N)  |/ \|  (1,N) +--------+
+   | Paciente |--------+   +--------| Medico |
+   +----------+        |\ /|        +--------+     
+      |                +-+-+         | 
+    (( ))telefone    consulta       ( )especialidade
