@@ -1,8 +1,4 @@
-1. Criar um banco de dados.
-
-a) chamado academico no MySQL WorkBench
-
-b) Execute o seguinte script DDL.
+1. Crie um banco de dados chamado academico no MySQL Workbench a partir do seguinte sript DDL.
 
 CREATE TABLE aluno(
   id_aluno INT NOT NULL,
@@ -20,6 +16,7 @@ CREATE TABLE disciplina(
 CREATE TABLE professor(
   id_professor INT NOT NULL,
   nome_professor VARCHAR(100) NOT NULL,
+  titulacao_professor VARCHAR(50) NOT NULL,
   PRIMARY KEY(id_professor)
 );
 
@@ -45,7 +42,7 @@ CREATE TABLE historico(
 );
 
 
-2. Executar comandos DML em um banco de dados.
+2. Elabore os comandos DML em um banco de dados.
 
 b) Insira um registro na tabela aluno preechendo somente a coluna id_aluno com o valor 1. Qual foi o resultado?
 
