@@ -1,6 +1,8 @@
-1. Executar comandos DML em um banco de dados.
+1. Criar um banco de dados.
 
-a) Criar um banco de dados chamado academico no MySQL WorkBench e execute o seguinte script DDL.
+a) chamado academico no MySQL WorkBench
+
+b) Execute o seguinte script DDL.
 
 CREATE TABLE aluno(
   id_aluno INT NOT NULL,
@@ -41,7 +43,10 @@ CREATE TABLE historico(
   FOREIGN KEY(id_turma) REFERENCES turma(id_turma) ON DELETE CASCADE,
   FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno)
 );
-  
+
+
+2. Executar comandos DML em um banco de dados.
+
 b) Insira um registro na tabela aluno preechendo somente a coluna id_aluno com o valor 1. Qual foi o resultado?
 
 c) Insira os seguintes registros na tabela aluno.
@@ -102,25 +107,3 @@ p) Exclua a disciplina BANCO DE DADOS II. Qual foi o resultado?
 
 q) Exclua o professor JOSE REGINALDO. Qual foi o resultado?
 
-
-2. Resolver as consultas a seguir usando a linguagem DQL.
-
-a) Forneça nome dos professores.
-
-b) Liste os alunos cujo nome terminam em A.
-
-c) Forneça chave primária, número de faltas e media final dos alunos matriculados na turma 1.
-
-d) Forneça chave primária dos alunos que não possuem media final na disciplina 1.
-
-e) Encontre chave primaria e nome do alunos que não foram reprovados (num_faltas < 75% ou nota < 5) em alguma disciplina.
-
-f) Liste, em ordem alfabética, os alunos que tiveram aula com o professor JOSE REGINALDO.
-
-g) Encontre as disciplinas que não foram ministradas pela professora LETICIA.
-
-h) Calcule a média geral de cada turma.
-
-i) Quantos alunos matriculados na disciplina de BANCO DE DADOS I em cada período.
-
-j) Encontre o nome dos alunos que cursaram todas as disciplinas.
