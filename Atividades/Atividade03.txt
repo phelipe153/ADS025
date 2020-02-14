@@ -1,28 +1,31 @@
-1. Resolva as consultas em Álgebra Relacional para o seguinte modelo de dados.
+1. Crie o modelo fisico para cada modelo relacional utilizando a ferramenta MySQL Workbench ou SQL Power Architect.
 
-Aluno (id_aluno*, nome)
-Disciplina (id_disciplina*, nome, carga_horaria)
-Professor (id_professor*, nome, titulacao)
-Turma (id_periodo*, id_disciplina*, id_turma*, horario, sala, id_professor)
-Historico (id_periodo*, id_disciplina*, id_turma*, id_aluno*, frequencia, nota)
+a) 
+Projeto (numero_projeto*, nome_projeto, data_inicio_projeto, numero_gerente)
+Projeto_Empregado (numero_projeto*, numero_empregado*, horas_trabalhadas_projeto)
+Empregado (numero_empregado*, nome_empregado, numero_depto)
+Gerente (numero_gerente*, nome_gerente)
+Departamento (numero_depto*, nome_depto)
 
-a) Forneça nome e titulação dos professores.
+b)
+Pedido (cod_pedido*, dat_emissao, cod_fornecedor, vlr_total_pedido)
+Pedido_Material (cod_pedido*, cod_material*, qtd_pedido, vlr_total_material)
+Material (cod_material*, dsc_material, vlr_unitario),
+Fornecedor (cod_fornecedor*, nom_fornecedor, end_fornecedor)
 
-b) Forneça id, freqüência e nota dos alunos matriculados em 20042 na turma 1 da disciplina MDC053.
+c)
+Turma (codigo_aluno*, cod_curso*, data_matricula)
+Aluno (codigo_aluno*, nome_aluno, email_aluno, fone_contato)
+Curso (cod_curso*, nome_curso)
 
-c) Encontre a sala ocupada pela disciplina MDC053 em cada período que foi oferecida. 
+d)
+Consulta (num_paciente*,  data_consulta*, cod_medico*, dsc_diagnostico)
+Paciente (num_paciente*, nome_paciente)
+Medico (cod_medico*, nome_medico, cod_especialidade)
+Especialidade (cod_especialidade*, dsc_especialidade)
 
-d) Localize os alunos que tiveram aula com o professor 3056 em algum período. 
-
-e) Forneça histórico escolar do aluno 199839550, contendo nome do aluno, período, nome da disciplina, freqüência e nota.
-
-f) Forneça os alunos que não possuem nota na disciplina MDC053.
-
-g) Encontre as turmas do professor 3056 e do aluno 199839550.
-
-h) Encontre as disciplinas que não foram ministras pelo professor 3056.
-
-i) Encontre o nome dos alunos que cursaram todas as disciplinas.
-
-j) Encontre os alunos que não foram reprovados (frequencia < 75% ou nota < 5) em nenhuma disciplina.
-
+e)
+Emprestimo (num_matricula*, num_isbn*, dat_emprestimo*, dat_devolucao)
+Aluno (num_matricula*, nom_aluno)
+Livro (num_isbn*, tit_livro, num_paginas, cod_editora)
+Editora (cod_editora*, nom_editora)
