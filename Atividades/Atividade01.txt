@@ -1,4 +1,4 @@
-1. Elabore um DER para cada estudo de caso descrito a seguir.
+1. Elabore um DE-R para cada estudo de caso descrito a seguir.
 
 a) Uma empresa de estacionamento deseja criar um sistema para controlar a utilização de suas vagas. Uma vaga contém um número identificador e um status (ocupada ou livre). Um cliente avulso ao chegar no estacionamento deixa o carro para o manobrista e recebe um comprovante do estacionamento que está registrando a placa do carro, marca, cor e hora de chegada e o número da vaga. Quando o cliente volta para receber o carro é registrado a hora de saída e calculado o valor do estacionamento. Já um cliente mensalista simplesmente é armazenado a hora de saída e o nome, já que paga o valor por mês.
 
@@ -9,3 +9,85 @@ c) Uma empresa de produtos farmacêuticos deseja criar um sistema para captar pe
 d) Um hotel deseja criar um sistema para controlar a ocupação de quartos devido a grande procura no período de férias. Um hóspede informa seus dados (nome, CPF, data de nascimento e telefone) ao realizar o check-in (data de entrada). Ele pode ocupar um ou mais quartos do hotel, dependendo da sua preferência. Um quarto pode ser simples (uma a três camas de solteiro, toalete com ou sem banheira, tv a cabo ou normal), casal (uma cama de casal, toalete com ou sem banheira, tv a cabo ou normal, com ou sem internet) ou especial (uma cama de casal, toalete com hidromassagem, tv a cabo, internet, sala de trabalho). Um hóspede pode solicitar serviços de cozinha, cabeleleiro, lavanderia e alfaiate, além do que é consumido no frigobar dentro do quarto. No check-out (data de saída), a conta do hóspede é encerrada, calculando o valor total das diárias mais os serviços utilizados.
 
 e) Um coordenador de pós-graduação lato sensu necessita de um sistema de software para coordenar seus vários cursos oferecidos pela faculdade a qual trabalha. Os alunos são matriculados em cursos. Cada curso de pos lato é composto por vários módulos (disciplinas) e estes têm um código, nome e carga-horária. Quando um módulo é ministrado tem-se que armazenar quem foi o professor que o ministrou, as notas e a freqüência obtida pelos alunos. Cada professor tem um registro único no SIAPE. Os alunos têm uma matrícula única. Cada módulo tem que ter o nome e a respectiva ementa. Deve ser realizado um controle dos pagamentos dos alunos. Cada curso tem um custo por aluno, onde este aluno deverá pagar este custo dividido em um conjunto de mensalidades, segundo o seguinte critério: 1 mensalidade (cota única) com 20% de desconto; 3 mensalidades com desconto de 15%; 6 mensalidades com desconto de 10%; ou 12 mensalidades sem desconto. Esta escolha é feita por cada aluno.
+
+
+2. Converta cada DE-R em um esquema do modelo relacional.
+
+a)
+      (*)codigo                            (*)matricula
+       |  ( )nome                           |  ( )nome
+       |   |                 +              |   |                +
+   +--------------+ (1,1)   / \    (0,N) +-------------+ (1,1)  / \
+   | Departamento |--------+   +---------| Funcionario |-------+   + gerencia
+   +--------------+         \ /          +-------------+        \ /
+                             +                |      | (0,N)     +
+                           lota       salario( )     +-----------+
+
+b)
+    ( )logradouro                     (*)id
+     | ( )numero                       | ( )nome
+     |  |                +             |  |
+   +----------+ (1,1)   / \    (1,1) +--------+ 
+   | Endereco |========+   +---------| Pessoa |
+   +----------+         \ /          +--------+
+     |  |  |             +               | 
+     |  | ( )cep       possui            + é
+     | ( )uf                            / \
+    ( )cidade                     +----+---+-----+
+                                  |              |
+                             +--------+     +----------+
+                             | Fisica |     | Juridica |
+                             +--------+     +----------+
+                               |  |           |  |  
+                               | ( )sexo      | ( )inscricao
+                              ( )cpf         ( )cnpj 
+
+c)
+    (*)cod_banco                   (*)cod_agencia
+     | ( )nome                      | ( )nome
+     |  |             +             |  |
+   +-------+ (1,1)   / \    (1,N) +---------+
+   | Banco |--------+   +---------| Agencia |
+   +-------+         \ /          +---------+
+                      +                | (1,N)
+                     tem               |
+                                       +  
+                                      / \---( )valor_parcela
+                            empresta +   +--( )qtde_parcelas
+                                      \ /---( )taxa_juros 
+                                       +
+                                       |
+                                       | (0,N)
+                                  +---------+
+                                  | Cliente |
+                                  +---------+ 
+                                    |  |  |
+                                    |  | (*)cpf 
+                                    | ( )nome
+                                   ( )data_nasc
+
+d)
+                           (*)id_produto
+                            | ( )nome
+                            |  |                    
+                          +---------+
+                          | Produto |
+                          +---------+
+     (*)id_fornecedor          | (0,N)         (*)id_consumidor
+      | ( )nome                |                | ( )nome
+      |  |                     +                |  |   
+   +------------+ (0,N)       / \      (0,N) +------------+  
+   | Fornecedor |------------+   +-----------| Consumidor |
+   +------------+    data( )--\ /--( )qtde   +------------+
+                               +          
+                            fornece
+
+e)
+    (*)cpf             ( )data      (*)crm   
+     | ( )nome          |            | ( )nome  
+     |  |              +-+-+         |  |  
+   +----------+ (0,N)  |/ \|  (1,N) +--------+
+   | Paciente |--------+   +--------| Medico |
+   +----------+        |\ /|        +--------+     
+      |                +-+-+         | 
+    (( ))telefone    consulta       ( )especialidade
