@@ -1,126 +1,31 @@
-1. Executar comandos DML em um banco de dados.
+1. Crie o modelo fisico para cada modelo relacional utilizando a ferramenta MySQL Workbench ou SQL Power Architect.
 
-a) Criar um banco de dados chamado academico no MySQL WorkBench e execute o seguinte script DDL.
+a) 
+Projeto (numero_projeto*, nome_projeto, data_inicio_projeto, numero_gerente)
+Projeto_Empregado (numero_projeto*, numero_empregado*, horas_trabalhadas_projeto)
+Empregado (numero_empregado*, nome_empregado, numero_depto)
+Gerente (numero_gerente*, nome_gerente)
+Departamento (numero_depto*, nome_depto)
 
-CREATE TABLE aluno(
-  id_aluno INT NOT NULL,
-  nome_aluno VARCHAR(100) NOT NULL,
-  PRIMARY KEY(id_aluno)
-);
+b)
+Pedido (cod_pedido*, dat_emissao, cod_fornecedor, vlr_total_pedido)
+Pedido_Material (cod_pedido*, cod_material*, qtd_pedido, vlr_total_material)
+Material (cod_material*, dsc_material, vlr_unitario),
+Fornecedor (cod_fornecedor*, nom_fornecedor, end_fornecedor)
 
-CREATE TABLE disciplina(
-  id_disciplina INT NOT NULL,
-  nome_disciplina VARCHAR(100) NOT NULL,
-  carga_horaria INT CHECK(carga_horaria > 0),
-  PRIMARY KEY(id_disciplina)
-);
+c)
+Turma (codigo_aluno*, cod_curso*, data_matricula)
+Aluno (codigo_aluno*, nome_aluno, email_aluno, fone_contato)
+Curso (cod_curso*, nome_curso)
 
-CREATE TABLE professor(
-  id_professor INT NOT NULL,
-  nome_professor VARCHAR(100) NOT NULL,
-  PRIMARY KEY(id_professor)
-);
+d)
+Consulta (num_paciente*,  data_consulta*, cod_medico*, dsc_diagnostico)
+Paciente (num_paciente*, nome_paciente)
+Medico (cod_medico*, nome_medico, cod_especialidade)
+Especialidade (cod_especialidade*, dsc_especialidade)
 
-CREATE TABLE turma(
-  id_turma INT NOT NULL,
-  num_periodo INT NOT NULL,
-  id_professor INT,
-  id_disciplina INT,
-  PRIMARY KEY(id_turma),
-  FOREIGN KEY(id_professor) REFERENCES professor(id_professor) ON DELETE CASCADE,
-  FOREIGN KEY(id_disciplina) REFERENCES disciplina(id_disciplina)
-);
-
-CREATE TABLE historico(
-  id_historico INT NOT NULL,
-  id_turma INT NOT NULL,
-  id_aluno INT NOT NULL,
-  num_faltas SMALLINT,
-  media_final DECIMAL(3,1),
-  PRIMARY KEY(id_historico),
-  FOREIGN KEY(id_turma) REFERENCES turma(id_turma) ON DELETE CASCADE,
-  FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno)
-);
-  
-b) Insira um registro na tabela aluno preechendo somente a coluna id_aluno com o valor 1. Qual foi o resultado?
-
-c) Insira os seguintes registros na tabela aluno.
-
-id_aluno        nome_aluno
-1               JOSE
-2               MARIA
-3               BRUNO
-4               CARLA
-5               PEDRO
-
-d) Insira um registro na tabela disciplina com os valores 1 para id_disciplina, BANCO DE DADOS I para nome_disciplina e -1 para carga_horaria. Qual foi o resultado?
-
-e) Insira os seguintes registros na tabela disciplina.
-
-id_disciplina    nome_disciplina     carga_horaria
-1                BANCO DE DADOS I    60
-2                BANCO DE DADOS II   60
-
-f) Insira os seguintes resgistros na tabela professor.
-id_professor   nome_professor
-1              LETICIA
-2              JOSE REGINALDO
-
-g) Insira um registro na tabela turma com os valores 1 para id_turma, 20192 para num_periodo. Qual foi o resultado?
-
-h) Insira um registro na tabela turma com os valores 1 para id_turma, 20201 para num_periodo. Qual foi o resultado?
-
-i) Insira um registro na tabela turma com os valores 2 para id_turma, 20201 para num_periodo e 3 para id_professor. Qual foi o resultado?
-
-j) Insira os registros na tabela turma.
-
-id_turma   num_periodo   id_professor  id_disciplina
-3          20201         1             1
-4          20202         2             2
-
-k) Insira os registros na tabela historico.
-
-id_historico    id_turma   id_aluno
-1               1          1
-2               1          2
-3               1          3
-4               1          4
-5               3          1
-6               3          2
-7               4          3
-8               4          4
-	   
-l) Altere o nome do aluno JOSE para JOAO.
-
-m) Altere o id_disciplina de BANCO DE DADOS I para o valor 3. Qual foi o resultado?
-
-n) Altere a media_final dos alunos que estão na turma de BANCO DE DADOS II para 5.
-
-o) Exclua o aluno PEDRO. Qual foi o resultado?
-
-p) Exclua a disciplina BANCO DE DADOS II. Qual foi o resultado?
-
-q) Exclua o professor JOSE REGINALDO. Qual foi o resultado?
-
-
-2. Resolver as consultas a seguir usando a linguagem DQL.
-
-a) Forneça nome dos professores.
-
-b) Liste os alunos cujo nome terminam em A.
-
-c) Forneça chave primária, número de faltas e media final dos alunos matriculados na turma 1.
-
-d) Forneça chave primária dos alunos que não possuem media final na disciplina 1.
-
-e) Encontre chave primaria e nome do alunos que não foram reprovados (num_faltas < 75% ou nota < 5) em alguma disciplina.
-
-f) Liste, em ordem alfabética, os alunos que tiveram aula com o professor JOSE REGINALDO.
-
-g) Encontre as disciplinas que não foram ministradas pela professora LETICIA.
-
-h) Calcule a média geral de cada turma.
-
-i) Quantos alunos matriculados na disciplina de BANCO DE DADOS I em cada período.
-
-j) Encontre o nome dos alunos que cursaram todas as disciplinas.
+e)
+Emprestimo (num_matricula*, num_isbn*, dat_emprestimo*, dat_devolucao)
+Aluno (num_matricula*, nom_aluno)
+Livro (num_isbn*, tit_livro, num_paginas, cod_editora)
+Editora (cod_editora*, nom_editora)
