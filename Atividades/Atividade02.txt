@@ -1,80 +1,66 @@
-1. Converta cada DER em um esquema do modelo relacional.
+1. Resolva as consultas em Álgebra Relacional para o seguinte modelo de dados.
 
-a)
-      (*)codigo                            (*)matricula
-       |  ( )nome                           |  ( )nome
-       |   |                 +              |   |                +
-   +--------------+ (1,1)   / \    (0,N) +-------------+ (1,1)  / \
-   | Departamento |--------+   +---------| Funcionario |-------+   + gerencia
-   +--------------+         \ /          +-------------+        \ /
-                             +                |      | (0,N)     +
-                           lota       salario( )     +-----------+
+Aluno (id_aluno*, nome)
+Disciplina (id_disciplina*, nome, carga_horaria)
+Professor (id_professor*, nome, titulacao)
+Turma (id_periodo*, id_disciplina*, id_turma*, horario, sala, id_professor)
+Historico (id_periodo*, id_disciplina*, id_turma*, id_aluno*, frequencia, nota)
 
-b)
-    ( )logradouro                     (*)id
-     | ( )numero                       | ( )nome
-     |  |                +             |  |
-   +----------+ (1,1)   / \    (1,1) +--------+ 
-   | Endereco |========+   +---------| Pessoa |
-   +----------+         \ /          +--------+
-     |  |  |             +               | 
-     |  | ( )cep       possui            + é
-     | ( )uf                            / \
-    ( )cidade                     +----+---+-----+
-                                  |              |
-                             +--------+     +----------+
-                             | Fisica |     | Juridica |
-                             +--------+     +----------+
-                               |  |           |  |  
-                               | ( )sexo      | ( )inscricao
-                              ( )cpf         ( )cnpj 
+a) Forneça nome e titulação dos professores.
 
-c)
-    (*)cod_banco                   (*)cod_agencia
-     | ( )nome                      | ( )nome
-     |  |             +             |  |
-   +-------+ (1,1)   / \    (1,N) +---------+
-   | Banco |--------+   +---------| Agencia |
-   +-------+         \ /          +---------+
-                      +                | (1,N)
-                     tem               |
-                                       +  
-                                      / \---( )valor_parcela
-                            empresta +   +--( )qtde_parcelas
-                                      \ /---( )taxa_juros 
-                                       +
-                                       |
-                                       | (0,N)
-                                  +---------+
-                                  | Cliente |
-                                  +---------+ 
-                                    |  |  |
-                                    |  | (*)cpf 
-                                    | ( )nome
-                                   ( )data_nasc
+b) Forneça id, freqüência e nota dos alunos matriculados em 20042 na turma 1 da disciplina ADS025.
 
-d)
-                           (*)id_produto
-                            | ( )nome
-                            |  |                    
-                          +---------+
-                          | Produto |
-                          +---------+
-     (*)id_fornecedor          | (0,N)         (*)id_consumidor
-      | ( )nome                |                | ( )nome
-      |  |                     +                |  |   
-   +------------+ (0,N)       / \      (0,N) +------------+  
-   | Fornecedor |------------+   +-----------| Consumidor |
-   +------------+    data( )--\ /--( )qtde   +------------+
-                               +          
-                            fornece
+c) Encontre a sala ocupada pela disciplina ADS025 em cada período que foi oferecida. 
 
-e)
-    (*)cpf             ( )data      (*)crm   
-     | ( )nome          |            | ( )nome  
-     |  |              +-+-+         |  |  
-   +----------+ (0,N)  |/ \|  (1,N) +--------+
-   | Paciente |--------+   +--------| Medico |
-   +----------+        |\ /|        +--------+     
-      |                +-+-+         | 
-    (( ))telefone    consulta       ( )especialidade
+d) Localize os alunos que tiveram aula com o professor 3056 em algum período. 
+
+e) Forneça histórico escolar do aluno 199839550, contendo nome do aluno, período, nome da disciplina, freqüência e nota.
+
+f) Forneça os alunos que não possuem nota na disciplina ADS025.
+
+g) Encontre as turmas do professor 3056 e do aluno 199839550.
+
+h) Encontre as disciplinas que não foram ministras pelo professor 3056.
+
+i) Encontre o nome dos alunos que cursaram todas as disciplinas.
+
+j) Encontre os alunos que não foram reprovados (frequencia < 75% ou nota < 5) em nenhuma disciplina.
+
+
+2. Aplique a 1FN, 2FN e 3FN para cada tabela não normalizada.
+
+a) Projeto (numero_empregado, nome_empregado, numero_depto, nome_depto, numero_gerente, nome_gerente, numero_projeto, nome_projeto, data_inicio_projeto, horas_trabalhadas_projeto).
+
+Chave(s): numero_projeto
+Dependência(s): numero_projeto -> nome_projeto, data_inicio_projeto, numero_gerente, nome_gerente                
+                numero_empregado -> nome_empregado, numero_depto, nome_depto, horas_trabalhadas_projeto
+                numero_depto -> nome_depto
+                numero_gerente -> nome_gerente
+
+b) Pedido (cod_pedido, dat_emissao, cod_fornecedor, nom_fornecedor, end_fornecedor, cod_material, dsc_material, qtd_pedido, vlr_unitario, vl_total_material, vlr_total_pedido).
+
+Chave(s): cod_pedido
+Dependência(s): cod_pedido -> dat_emissao, cod_fornecedor, nom_fornecedor, end_fornecedor, vlr_total_pedido
+                {cod_pedido, cod_material} -> qtd_pedido, vl_total_material
+                cod_material -> dsc_material, vlr_unitario 
+                cod_fornecedor -> nom_fornecedor, end_fornecedor
+
+c) Turma (codigo_aluno, nome_aluno, email_aluno, fone_contato, cod_curso, nome_curso, data_matricula).
+
+Chaves(s): codigo_aluno, codigo_curso
+Dependência(s): codigo_aluno -> nome_aluno, email_aluno, fone_contato
+                cod_curso -> nome_curso
+
+d) Consulta (num_paciente, nome_paciente, data_consulta, dsc_diagnostico, cod_medico, nome_medico, cod_especialidade, dsc_especialidade).
+
+Chaves(s): num_paciente, data_consulta, cod_medico
+Dependência(s): num_paciente -> nome_paciente
+                cod_medico -> nome_medico, cod_especialidade, dsc_especialidade
+                cod_especialidade -> dsc_especialidade
+                                                                                                   
+e) Emprestimo (num_matricula, nom_aluno, num_isbn, tit_livro, dat_emprestimo, dat_devolucao, num_paginas, cod_editora, nom_editora)
+
+Chaves(s): num_matricula, num_isbn, dat_emprestimo
+Dependência(s): num_matricula -> nom_aluno
+                num_isbn -> tit_livro, num_paginas, cod_editora, nom_editora
+                cod_editora -> nom_editora
