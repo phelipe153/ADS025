@@ -1,37 +1,155 @@
-1. Aplique a 1FN, 2FN e 3FN para cada tabela não normalizada.
+1. Crie o script DDL para cada modelo físico de banco de dados.
 
-a) Projeto (numero_empregado, nome_empregado, numero_depto, nome_depto, numero_gerente, nome_gerente, numero_projeto, nome_projeto, data_inicio_projeto, horas_trabalhadas_projeto).
+a)
+   PROJETO                                      
+   +----------------------------------+         GERENTE
+   |numero_projeto INT NOT NULL PK    |         +----------------------------------+
+   +----------------------------------+\        |numero_gerente INT NOT NULL PK    |
+   |nome_projeto VARCHAR(100) NOT NULL|---------+----------------------------------+
+   |data_inicio_projeto DATE          |/        |nome_gerente VARCHAR(100) NOT NULL|
+   |numero_gerente INT NOT NULL FK    |         +----------------------------------+
+   +----------------------------------+ 
+                        |                  
+                        |
+                        | 
+   PROJETO_EMPREGADO   /|\
+   +--------------------------------------------+
+   |numero_projeto INT NOT NULL PFK             |
+   |numero_empregado INT NOT NULL PFK           |
+   +--------------------------------------------+
+   |horas_trabalhadas_projeto SMALLINT DEFAULT 0|
+   +--------------------------------------------+
+                  \|/
+                   |
+                   |
+   EMPREGADO       |
+   +------------------------------------+         DEPARTAMENTO
+   |numero_empregado INT NOT NULL PK    |         +--------------------------------+
+   +------------------------------------+\        |numero_depto INT NOT NULL PK    |
+   |nome_empregado VARCHAR(100) NOT NULL|---------+--------------------------------+
+   |numero_depto INT FK                 |/        |nome_depto VARCHAR(100) NOT NULL|
+   +------------------------------------+         +--------------------------------+
 
-Chave(s): numero_projeto
-Dependência(s): numero_projeto -> nome_projeto, data_inicio_projeto, numero_gerente, nome_gerente                
-                numero_empregado -> nome_empregado, numero_depto, nome_depto, horas_trabalhadas_projeto
-                numero_depto -> nome_depto
-                numero_gerente -> nome_gerente
+b)
+   PEDIDO                                      
+   +----------------------------------------+         FORNECEDOR
+   |cod_pedido INT NOT NULL AI PK           |         +------------------------------------+
+   +----------------------------------------+\        |cod_fornecedor INT NOT NULL AI PK   |
+   |dat_emissao DATE NOT NULL               |---------+------------------------------------+
+   |cod_fornecedor INT NOT NULL FK          |/        |nom_fornecedor VARCHAR(100) NOT NULL|
+   |vlr_total_pedido DECIMAL(12,2) DEFAULT 0|         |end_fornecedor VARCHAR(100)         |
+   +----------------------------------------+         +------------------------------------+ 
+                        |                  
+                        |
+                        | 
+   PEDIDO_MATERIAL     /|\
+   +-----------------------------------------+
+   |cod_pedido INT NOT NULL PFK              |
+   |cod_material INT NOT NULL PFK            |
+   +-----------------------------------------+
+   |qtde_material SMALLINT NOT NULL CHECK > 0|
+   |vlr_material DECIMAL(12,2) NOT NULL      | 
+   +-----------------------------------------+
+                  \|/
+                   |
+                   |
+   MATERIAL        |
+   +-----------------------------------+
+   |cod_material INT NOT NULL AI PK    |
+   +-----------------------------------+
+   |dsc_material VARCHAR(100) NOT NULL |
+   |vlr_unitario DECIMAL(12,2) NOT NULL|            
+   +-----------------------------------+
 
-b) Pedido (cod_pedido, dat_emissao, cod_fornecedor, nom_fornecedor, end_fornecedor, cod_material, dsc_material, qtd_pedido, vlr_unitario, vl_total_material, vlr_total_pedido).
+c)
+   CURSO                                      
+   +--------------------------------+
+   |id_curso INT AI PK              |
+   +--------------------------------+
+   |nome_curso VARCHAR(100) NOT NULL| 
+   |carga_horaria SMALLINT          |
+   +--------------------------------+ 
+                |                  
+                |
+                | 
+   TURMA       /|\
+   +----------------------------+
+   |id_turma INT NOT NULL AI PK |
+   +----------------------------+
+   |id_curso INT NOT NULL FK    |
+   |id_aluno INT NOT NULL FK    |
+   |data_matricula DATE NOT NULL| 
+   +----------------------------+
+               \|/
+                |
+                |
+   ALUNO        |
+   +--------------------------------+
+   |id_aluno INT NOT NULL AI PK     |
+   +--------------------------------+
+   |nome_aluno VARCHAR(100) NOT NULL|
+   |email_aluno VARCHAR(100)        |
+   |fone_contato CHAR(14)           |
+   +--------------------------------+
 
-Chave(s): cod_pedido
-Dependência(s): cod_pedido -> dat_emissao, cod_fornecedor, nom_fornecedor, end_fornecedor, vlr_total_pedido
-                {cod_pedido, cod_material} -> qtd_pedido, vl_total_material
-                cod_material -> dsc_material, vlr_unitario 
-                cod_fornecedor -> nom_fornecedor, end_fornecedor
+d)
+   MEDICO                                      
+   +---------------------------------+        ESPECIALIDADE
+   |cod_medico INT AI PK             |        +---------------------------------------+
+   +---------------------------------+\       |cod_especialidade INT NOT NULL PK      |
+   |nome_medico VARCHAR(100) NOT NULL|--------+---------------------------------------+ 
+   |cod_especialidade INT NOT NULL FK|/       |dsc_especialidade VARCHAR(100) NOT NULL| 
+   +---------------------------------+        +---------------------------------------+
+                |                  
+                |
+                | 
+   CONSULTA    /|\
+   +------------------------------+
+   |id_consulta INT NOT NULL AI PK|
+   +------------------------------+
+   |id_medico INT NOT NULL FK     |
+   |id_paciente INT NOT NULL FK   |
+   |data_consulta DATE NOT NULL   | 
+   +------------------------------+
+               \|/
+                |
+                |
+   PACIENTE     |
+   +-----------------------------------+
+   |id_paciente INT NOT NULL AI PK     |
+   +-----------------------------------+
+   |nome_paciente VARCHAR(100) NOT NULL|
+   +-----------------------------------+
 
-c) Turma (codigo_aluno, nome_aluno, email_aluno, fone_contato, cod_curso, nome_curso, data_matricula).
-
-Chaves(s): codigo_aluno, codigo_curso
-Dependência(s): codigo_aluno -> nome_aluno, email_aluno, fone_contato
-                cod_curso -> nome_curso
-
-d) Consulta (num_paciente, nome_paciente, data_consulta, dsc_diagnostico, cod_medico, nome_medico, cod_especialidade, dsc_especialidade).
-
-Chaves(s): num_paciente, data_consulta, cod_medico
-Dependência(s): num_paciente -> nome_paciente
-                cod_medico -> nome_medico, cod_especialidade, dsc_especialidade
-                cod_especialidade -> dsc_especialidade
-                                                                                                   
-e) Emprestimo (num_matricula, nom_aluno, num_isbn, tit_livro, dat_emprestimo, dat_devolucao, num_paginas, cod_editora, nom_editora)
-
-Chaves(s): num_matricula, num_isbn, dat_emprestimo
-Dependência(s): num_matricula -> nom_aluno
-                num_isbn -> tit_livro, num_paginas, cod_editora, nom_editora
-                cod_editora -> nom_editora
+e)
+   LIVRO                                      
+   +---------------------------------+        EDITORA
+   |id_livro INT AI PK               |        +---------------------------------+
+   +---------------------------------+\       |cod_editora INT NOT NULL AI PK   |
+   |num_isbn CHAR(13) NOT NULL UNIQUE|--------+---------------------------------+ 
+   |tit_livro VARCHAR(100) NOT NULL  |/       |nom_editora VARCHAR(100) NOT NULL| 
+   |num_paginas SMALLINT CHECK > 0   |        +---------------------------------+
+   |cod_editora INT NOT NULL FK      |
+   +---------------------------------+        
+                |                  
+                |
+                | 
+   EMPRESTIMO  /|\
+   +---------------------------------+
+   |id_emprestimo INT NOT NULL AI PK |
+   +---------------------------------+
+   |id_livro INT NOT NULL FK         |
+   |id_aluno INT NOT NULL FK         |
+   |dat_emprestimo DATE NOT NULL     | 
+   |dat_devolucao DATE               | 
+   +---------------------------------+
+               \|/
+                |
+                |
+   ALUNO        |
+   +---------------------------------+
+   |id_aluno INT NOT NULL AI PK      |
+   +---------------------------------+
+   |num_matricula INT NOT NULL UNIQUE|
+   |nom_aluno VARCHAR(100) NOT NULL  |
+   +---------------------------------+
