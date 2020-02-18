@@ -25,6 +25,8 @@ CREATE TABLE turma(
   num_periodo INT NOT NULL,
   id_professor INT,
   id_disciplina INT,
+  horario_aula VARCHAR(10),
+  num_sala VARCHAR(10),
   PRIMARY KEY(id_turma),
   FOREIGN KEY(id_professor) REFERENCES professor(id_professor) ON DELETE CASCADE,
   FOREIGN KEY(id_disciplina) REFERENCES disciplina(id_disciplina)
