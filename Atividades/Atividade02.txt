@@ -3,12 +3,12 @@
 Aluno (id_aluno*, nome_aluno)
 Disciplina (id_disciplina*, nome_disciplina, carga_horaria)
 Professor (id_professor*, nome_professor, titulacao_professor)
-Turma (id_turma*, num_periodo*, id_disciplina*, id_professor, horario_aula, num_sala)
-Historico (id_historico*, id_turma*, id_aluno*, num_faltas, media_final)
+Turma (id_turma*, num_periodo, id_disciplina, id_professor, horario_aula, num_sala)
+Historico (id_historico*, id_turma, id_aluno, num_faltas, media_final)
 
 a) Forneça nome e titulação dos professores.
 
-b) Forneça id, freqüência e nota dos alunos matriculados em 20042 na turma 1 da disciplina ADS025.
+b) Forneça id, número de faltas e a média final dos alunos matriculados em 20042 na turma 1 da disciplina ADS025.
 
 c) Encontre a sala ocupada pela disciplina ADS025 em cada período que foi oferecida. 
 
